@@ -141,6 +141,8 @@ function App() {
         </div>
       </header>
 
+      <h1>{process.env.VITE_APP_KEY_ID}</h1>
+
       <div className="flex gap-x-8 rounded-lg p-4 shadow-sm shadow-indigo-100 bg-slate-200 mb-5">
         <img
           alt="Home"
