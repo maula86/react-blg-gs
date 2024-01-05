@@ -2,10 +2,10 @@
 import axios from "axios";
 // import { transformData } from "../helpers/transformData";
 
-const vurl = import.meta.env.VERCEL_APP_URL;
-const vsheetId = import.meta.env.VERCEL_APP_SHEET_ID;
-const vkeyVr = import.meta.env.VERCEL_APP_VALUE_RENDER;
-const vkeyId = import.meta.env.VERCEL_APP_KEY_ID;
+const vurl = import.meta.env.VITE_APP_URL;
+const vsheetId = import.meta.env.VITE_APP_SHEET_ID;
+const vkeyId = import.meta.env.VITE_APP_KEY_ID;
+const vkeyVr = import.meta.env.VITE_APP_VALUE_RENDER;
 
 // const sheetNm = "Posts";
 let urls = [

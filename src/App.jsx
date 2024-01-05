@@ -41,6 +41,9 @@ function App() {
   // }, [])
 
   console.log(dataAll);
+
+const AppName = import.meta.env.VITE_APP_NAME;
+
     
     const waktuSaatIni = new Date();
     const jam = waktuSaatIni.getHours();
@@ -141,7 +144,7 @@ function App() {
         </div>
       </header>
 
-      <h1>{import.meta.env.VITE_APP_NAME}</h1>
+      <h1>{AppName}</h1>
 
       <div className="flex gap-x-8 rounded-lg p-4 shadow-sm shadow-indigo-100 bg-slate-200 mb-5">
         <img
