@@ -14,23 +14,24 @@ import { transformData } from './helpers/transformData';
 function App() {
   
   const [dataAll, setAll] = useState([]);
-  // const [dataPosts, setPosts] = useState([]);
-  // const [dataUsers, setUsers] = useState([]);
-  // const [dataNices, setNices] = useState([]);
+  const [dataPosts, setPosts] = useState([]);
+  const [dataUsers, setUsers] = useState([]);
+  const [dataNices, setNices] = useState([]);
 
   useEffect(() => {
-    let wrap_upc = []
+    // let wrap_upc = []
     getAll((posts) => 
-      posts.forEach(function (item, index) {
+      // posts.forEach(function (item, index) {
         
-        // console.log(transformData(item))
-        const upc = transformData(item)
-        wrap_upc[index] = upc
-        // console.log(upc);
-        // console.log(wrap_upc);
-        // console.log(index);
-      }),
-      setAll(wrap_upc));
+      //   // console.log(transformData(item))
+      //   // const upc = transformData(item)
+      //   const upc = item
+      //   wrap_upc[index] = upc
+      //   // console.log(upc);
+      //   // console.log(wrap_upc);
+      //   // console.log(index);
+      // }),
+      setAll(posts));
   }, []);
 
 
@@ -40,7 +41,21 @@ function App() {
   //   setNices(dataAll[2]);
   // }, [])
 
-  console.log(dataAll);
+  // console.log(dataAll);
+
+  // console.log(dataAll);
+  useEffect(() => {
+    let wrap_upc = []
+    dataAll.forEach(function (item, index) {
+      const upc = transformData(item)
+      wrap_upc[index] = upc
+    })
+  
+    // console.log(wrap_upc);
+    setPosts(wrap_upc[0]);
+    setUsers(wrap_upc[1]);
+    setNices(wrap_upc[2]);
+  }, [dataAll])
 
 const AppName = import.meta.env.VITE_APP_NAME;
 
@@ -289,25 +304,26 @@ const AppName = import.meta.env.VITE_APP_NAME;
       </section>
 
       <section className="mt-36">
+        
         {
-          dataAll.length > 0 && 
-          dataAll[1].map((du) => {
+          // dataAll.length > 0 && 
+          dataUsers?.map((da) => {
             return (
-              <div className="prose" key={du.id} dangerouslySetInnerHTML={{ __html: `${du.name}` }} />
+              <div className="prose" key={da.id} dangerouslySetInnerHTML={{ __html: `${da.name}` }} />
             )
           })
         }
         {
-          dataAll.length > 0 &&
-          dataAll[2].map((dn) => {
+          // Nices.length > 0 &&
+          dataNices?.map((dn) => {
             return (
               <div className="prose" key={dn.id} dangerouslySetInnerHTML={{ __html: `${dn.nice}` }} />
             )
           })
         }
         {
-          dataAll.length > 0 &&
-          <PostData data={dataAll[0]} />
+          // Posts.length > 0 &&
+          <PostData data={dataPosts} />
         }
       </section>
 

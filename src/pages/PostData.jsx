@@ -1,7 +1,7 @@
 const PostData =  ({data}) => {
     return (
         <>
-        {data.map((item) => {
+        {data?.map((item) => {
             return (
                 <div className="prose" key={item.id} dangerouslySetInnerHTML={{ __html: `${item.post_content}` }} />
             )
