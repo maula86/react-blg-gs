@@ -7,7 +7,7 @@ import '../public/index.css';
 import { useEffect } from "react";
 // import { getNices, getPosts, getUsers } from "./services/getGData";
 import { getAll } from "./services/getGData";
-import { transformData } from './helpers/transformData';
+import { humanDiffTime, mergedDobledata, transformData } from './helpers/transformData';
 
 // import Post from './pages/Pages'
 
@@ -17,6 +17,7 @@ function App() {
   const [dataPosts, setPosts] = useState([]);
   const [dataUsers, setUsers] = useState([]);
   const [dataNices, setNices] = useState([]);
+  const [dataPUN, setPUN] = useState([]);
 
   useEffect(() => {
     // let wrap_upc = []
@@ -50,12 +51,26 @@ function App() {
       const upc = transformData(item)
       wrap_upc[index] = upc
     })
+
+    const match_post_user = mergedDobledata(wrap_upc[0], wrap_upc[1],  "idx_user", "id_users", "email")
+    const match_post_nice = mergedDobledata(match_post_user, wrap_upc[2],  "idx_nice", "id_nices", "deskripsi")
+
+    const fix_data = match_post_nice
+    
+    // const newData = Object.fromEntries(
+    //   Object.entries(match_post_user).filter(([key]) => key !== "id_author")
+    // );
+    // const m_up = ignoreKeys(match_post_user)
+    // console.log(newData);
   
     // console.log(wrap_upc);
-    setPosts(wrap_upc[0]);
-    setUsers(wrap_upc[1]);
-    setNices(wrap_upc[2]);
+    // setPosts(wrap_upc[0]);
+    // setUsers(wrap_upc[1]);
+    // setNices(wrap_upc[2]);
+    setPUN(fix_data);
+
   }, [dataAll])
+  
 
 const AppName = import.meta.env.VITE_APP_NAME;
 
@@ -304,12 +319,14 @@ const AppName = import.meta.env.VITE_APP_NAME;
       </section>
 
       <section className="mt-36">
+
+
         
-        {
+        {/* {
           // dataAll.length > 0 && 
           dataUsers?.map((da) => {
             return (
-              <div className="prose" key={da.id} dangerouslySetInnerHTML={{ __html: `${da.name}` }} />
+              <div className="prose" key={da.id_users} dangerouslySetInnerHTML={{ __html: `${da.name}` }} />
             )
           })
         }
@@ -317,13 +334,40 @@ const AppName = import.meta.env.VITE_APP_NAME;
           // Nices.length > 0 &&
           dataNices?.map((dn) => {
             return (
-              <div className="prose" key={dn.id} dangerouslySetInnerHTML={{ __html: `${dn.nice}` }} />
+              <div className="prose" key={dn.id_nices} dangerouslySetInnerHTML={{ __html: `${dn.nice}` }} />
             )
           })
         }
         {
           // Posts.length > 0 &&
           <PostData data={dataPosts} />
+        } */}
+      </section>
+
+      <section className="mt-36">
+        {dataPUN.length > 0 &&
+          dataPUN?.map((da) => {
+            return (
+              <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg my-4" key={da.id_posts}>
+                <img
+                  alt="Office"
+                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                  className="h-56 w-full object-cover"
+                />
+
+                <div className="bg-white p-4 sm:p-6">
+                  <time className="block text-xs text-gray-500"> {humanDiffTime(new Date(da.created_at), new Date())} </time>
+
+                  <a href="#">
+                    <h3 className="mt-0.5 text-lg text-gray-900">{da.post_title}</h3>
+                  </a>
+
+                  <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 prose" dangerouslySetInnerHTML={{ __html: `${da.post_content}` }}>
+                  </p>
+                </div>
+              </article>
+            )
+          })
         }
       </section>
 
