@@ -8,6 +8,7 @@ import { useEffect } from "react";
 // import { getNices, getPosts, getUsers } from "./services/getGData";
 import { getAll } from "./services/getGData";
 import { humanDiffTime, mergedDobledata, transformData } from './helpers/transformData';
+import { Link } from "react-router-dom";
 
 // import Post from './pages/Pages'
 
@@ -318,7 +319,7 @@ const AppName = import.meta.env.VITE_APP_NAME;
         </div>
       </section>
 
-      <section className="mt-36">
+      <section className="mt-3">
 
 
         
@@ -344,28 +345,27 @@ const AppName = import.meta.env.VITE_APP_NAME;
         } */}
       </section>
 
-      <section className="mt-36">
+      <section className="mt-10 flex flex-wrap gap-x-6 justify-center items-center">
         {dataPUN.length > 0 &&
           dataPUN?.map((da) => {
             return (
-              <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg my-4" key={da.id_posts}>
-                <img
-                  alt="Office"
-                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                  className="h-56 w-full object-cover"
-                />
+              <Link to={`/post/${da.id_posts}`} key={da.id_posts}>
+                <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg my-4 w-80" key={da.id_posts}>
+                  <img
+                    alt="Office"
+                    src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                    className="h-56 w-full object-cover"
+                  />
 
-                <div className="bg-white p-4 sm:p-6">
-                  <time className="block text-xs text-gray-500"> {humanDiffTime(new Date(da.created_at), new Date())} </time>
-
-                  <a href="#">
+                  <div className="bg-white p-4 sm:p-6">
+                    {/* {console.log(typeofda.updated_at)} */}
+                    <time className="block text-xs text-gray-500"> {humanDiffTime(new Date(da.updated_at), new Date())} </time>
                     <h3 className="mt-0.5 text-lg text-gray-900">{da.post_title}</h3>
-                  </a>
-
-                  <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 prose" dangerouslySetInnerHTML={{ __html: `${da.post_content}` }}>
-                  </p>
-                </div>
-              </article>
+                    <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 prose" dangerouslySetInnerHTML={{ __html: `${da.post_content}` }}>
+                    </p>
+                  </div>
+                </article>
+              </Link>
             )
           })
         }
